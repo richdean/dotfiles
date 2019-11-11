@@ -157,6 +157,8 @@ nnoremap <C-w><Bslash> <C-w>_<C-w>\|
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-l> <C-w>l
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR><C-w>=
