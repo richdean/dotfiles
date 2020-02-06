@@ -251,3 +251,9 @@ set diffopt+=vertical
 
 " Resize splits automatically
 autocmd VimResized * execute "normal! \<c-w>="
+
+" Folds
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
