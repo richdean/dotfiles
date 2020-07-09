@@ -231,7 +231,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Stip whitespace on save
+" Strip whitespace on save
 autocmd BufEnter * EnableStripWhitespaceOnSave
 highlight ExtraWhitespace guibg=#ad7c0b
 
