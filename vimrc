@@ -35,8 +35,14 @@ Plug 'jiangmiao/auto-pairs'
 " JavaScript
 Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier'
-Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leshill/vim-json'
+
+" TypeScript
+Plug 'leafgarland/typescript-vim'
+
+" GraphQL
+Plug 'jparise/vim-graphql'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -65,11 +71,16 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Code completion
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
+
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
 
 syntax on
 set encoding=utf-8
@@ -167,6 +178,7 @@ let NERDTreeShowHidden=1
 " Linting
 let g:ale_linters = {
   \ 'javascript': ['eslint', 'flow'],
+  \ 'typescript': ['eslint'],
   \ 'rust': ['rls'],
   \ }
 " let g:ale_reason_ls_executable = '~/.vim/reason-language-server'
@@ -257,3 +269,28 @@ set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=1
+
+" CoC
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Change error highlight
+highlight CocErrorSign ctermbg=235 ctermfg=203 guibg=#1e2132 guifg=#e27878
+highlight CocErrorFloat ctermfg=203
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>

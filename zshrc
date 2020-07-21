@@ -132,7 +132,7 @@ eval "$(fnm env --multi)"
 eval "$(starship init zsh)"
 
 # Haskell
-source /Users/rdean/.ghcup/env
+# source /Users/rich/.ghcup/env
 
 # Tmux alias
 alias t="tmux"
