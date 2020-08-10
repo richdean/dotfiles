@@ -140,7 +140,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+export FZF_DEFAULT_COMMAND="rg --files --hidden --no-ignore-vcs -g '!{node_modules/*,.git/*,build/*}'"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 # tmuxifier
