@@ -217,20 +217,22 @@ nnoremap <silent> <cr> :call LanguageClient#textDocument_hover()<cr>
 map <C-p> :FZF<CR>
 " General file search
 nnoremap <leader>p :FZF<cr>
-nnoremap <leader>h :History<cr>
-nnoremap <leader>ch :History:<cr>
+nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>l :Lines<cr>
 nnoremap <leader>m :Marks<cr>
 " Infile search
-nnoremap <leader>/ :Lines<cr>
-nnoremap <leader>l :Lines<cr>
+nnoremap <leader>/ :BLines<cr>
 nnoremap <leader>t :Tags<cr>
-nnoremap <leader>b :Buffers<cr>
+" Command search
+nnoremap <leader>ch :History:<cr>
+" Help search
+nnoremap <leader>h :Helptags<cr>
 " Git searching
 nnoremap <leader>g :GFiles?<cr>
 nnoremap <leader>c :Commits<cr>
-nnoremap <leader>bc :BCommits<cr>
+nnoremap <leader>cb :BCommits<cr>
 " Project wide search
-nnoremap <leader>? :Ag<cr>
+nnoremap <leader>? :Rg<cr>
 " Colours
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
