@@ -114,6 +114,9 @@ let mapleader = " "
 " Turn on relative line numbers
 set number relativenumber
 
+" Stop delay when exiting visual mode
+set timeoutlen=1000 ttimeoutlen=0
+
 set nobackup
 set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
