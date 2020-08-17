@@ -31,6 +31,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'jiangmiao/auto-pairs'
+Plug 'Asheq/close-buffers.vim'
 
 " JavaScript
 Plug 'pangloss/vim-javascript'
