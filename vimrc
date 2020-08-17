@@ -175,8 +175,8 @@ nnoremap <C-w><Bslash> <C-w>_<C-w>\|
 let g:tmux_navigator_disable_when_zoomed = 1
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR><C-w>=
-let NERDTreeShowHidden=1
+map <expr> <C-n> g:NERDTree.IsOpen() ? "\:NERDTreeToggle <CR><C-w>=" : "\:NERDTreeFocus <CR><C-w>="
+let NERDTreeShowHidden = 1
 
 " Linting
 let g:ale_linters = {
