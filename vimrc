@@ -29,7 +29,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-surround'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-commentary'
-Plug 'terryma/vim-smooth-scroll'
+" Plug 'terryma/vim-smooth-scroll'
+Plug 'psliwka/vim-smoothie'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Asheq/close-buffers.vim'
 
@@ -254,10 +255,12 @@ autocmd BufEnter * EnableStripWhitespaceOnSave
 highlight ExtraWhitespace guibg=#ad7c0b
 
 " Smooth scrolling
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+let g:smoothie_update_interval = 1
+let g:smoothie_base_speed = 200
 
 " Code completion
 let g:deoplete#enable_at_startup = 1
