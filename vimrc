@@ -13,6 +13,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'joshdick/onedark.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'sainnhe/gruvbox-material'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -21,9 +22,10 @@ Plug 'airblade/vim-gitgutter'
 " Nerd tree
 Plug 'scrooloose/nerdtree'
 
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Statusline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " Utils
 Plug 'tpope/vim-surround'
@@ -33,10 +35,15 @@ Plug 'tpope/vim-commentary'
 Plug 'psliwka/vim-smoothie'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Asheq/close-buffers.vim'
+Plug 'ap/vim-css-color'
 
 " JavaScript
 Plug 'pangloss/vim-javascript'
-Plug 'prettier/vim-prettier'
+" Plug 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'branch': 'release/0.x'
+  \ }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leshill/vim-json'
 
@@ -97,9 +104,27 @@ endif
 
 set t_Co=256
 set background=dark
+let g:lightline = {
+      \ 'colorscheme': 'iceberg',
+      \ }
+
+" let g:lightline = {
+"       \ 'colorscheme': 'gruvbox_material',
+"       \ }
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+" let g:gruvbox_material_background = 'hard'
+" let g:gruvbox_material_disable_italic_comment = 1
+" For better performance
+" let g:gruvbox_material_better_performance = 1
+
 colorscheme iceberg
+" colorscheme gruvbox-material
 
 let g:airline_theme='iceberg'
+" let g:airline_theme='gruvbox_material'
 " let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -132,6 +157,7 @@ set cursorline
 set linespace=6 " Set line height
 set backspace=2
 set ignorecase
+set hlsearch      " highligth search results
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -148,6 +174,9 @@ set list listchars=tab:»·,trail:·,nbsp:·
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
+
+" Toggle relative line numbers
+nnoremap <leader>rn :set rnu!<cr>
 
 " No arrow keys!
 nnoremap <Left> :echoe "Use h"<CR>
@@ -200,7 +229,7 @@ let g:jsx_ext_required = 0
 " autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml,*.html PrettierAsync
 
 " Rust
 let g:rustfmt_autosave = 1
@@ -226,6 +255,7 @@ nnoremap <leader>/ :BLines<cr>
 nnoremap <leader>t :Tags<cr>
 " Command search
 nnoremap <leader>ch :History:<cr>
+nnoremap <leader>cm :Command<cr>
 " Help search
 nnoremap <leader>h :Helptags<cr>
 " Git searching
@@ -233,7 +263,7 @@ nnoremap <leader>g :GFiles?<cr>
 nnoremap <leader>c :Commits<cr>
 nnoremap <leader>cb :BCommits<cr>
 " Project wide search
-nnoremap <leader>? :Rg<cr>
+nnoremap <leader>? :RG<cr>
 " Colours
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -250,6 +280,16 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " Strip whitespace on save
 autocmd BufEnter * EnableStripWhitespaceOnSave
 highlight ExtraWhitespace guibg=#ad7c0b
@@ -260,7 +300,8 @@ highlight ExtraWhitespace guibg=#ad7c0b
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 let g:smoothie_update_interval = 1
-let g:smoothie_base_speed = 200
+let g:smoothie_speed_constant_factor = 200
+let g:smoothie_speed_linear_factor = 200
 
 " Code completion
 let g:deoplete#enable_at_startup = 1
@@ -303,3 +344,12 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Mappings for CoCList
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+
+" Set the filetype for env files
+au BufRead,BufNewFile .env.* setfiletype sh
+
+" Set the filetype for snapshot files
+au BufRead,BufNewFile *.snap setfiletype typescriptreact
+
+" Turn search highlighting off
+nnoremap <silent> <CR> :nohlsearch<CR><CR>

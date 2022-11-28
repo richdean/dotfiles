@@ -71,7 +71,6 @@ plugins=(
   nvm
   docker
   rust
-  cargo
   tmux
 )
 
@@ -126,7 +125,7 @@ export TERM="screen-256color"
 # test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # fnm
-eval "$(fnm env --multi)"
+eval "$(fnm env)"
 
 # Starship
 eval "$(starship init zsh)"
@@ -151,3 +150,5 @@ alias tsp="tmuxifier load-session project"
 # Vim keybindings
 bindkey -v
 bindkey "^?" backward-delete-char
+
+source $HOME/.gitlab
