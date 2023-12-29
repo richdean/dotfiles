@@ -56,12 +56,15 @@ Plug 'jparise/vim-graphql'
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Reason
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 " OCaml
 " TODO
@@ -353,3 +356,12 @@ au BufRead,BufNewFile *.snap setfiletype typescriptreact
 
 " Turn search highlighting off
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
+
+" disable all go linters as that is taken care of by coc.nvim
+let g:go_diagnostics_enabled = 0
+let g:go_metalinter_enabled = []
+
+" run go imports on file save
+let g:go_fmt_command = "goimports"
+
+let g:go_highlight_types = 1
