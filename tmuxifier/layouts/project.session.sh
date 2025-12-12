@@ -12,6 +12,7 @@ if initialize_session "${PWD##*/}"; then
   # Load a defined window layout.
   load_window "vim"
   load_window "term"
+  load_window "git"
 
   # Select the default active window on session creation.
   select_window 1

@@ -3,6 +3,7 @@
 export PATH=$HOME/.local/bin:$PATH
 
 ZSH_DISABLE_COMPFIX=true
+DISABLE_AUTO_TITLE="true"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -137,6 +138,15 @@ eval "$(starship init zsh)"
 alias t="tmux"
 alias tmux="TERM=screen-256color-bce tmux"
 
+# Neovim alias
+alias vim="nvim"
+
+# Lazygit alias
+alias lg="lazygit"
+
+# Claude Code alias
+alias cc="claude"
+
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND="rg --files --hidden --no-ignore-vcs -g '!{node_modules/*,.git/*,build/*}'"
@@ -151,4 +161,10 @@ alias tsp="tmuxifier load-session project"
 bindkey -v
 bindkey "^?" backward-delete-char
 
-source $HOME/.gitlab
+# source $HOME/.gitlab
+
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
+export PATH=$GOBIN:$PATH
+
+source "$HOME/.rye/env"
